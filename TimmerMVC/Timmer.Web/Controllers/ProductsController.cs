@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -47,6 +48,7 @@ namespace Timmer.Web.Controllers
             return View(product);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Products/Create
         public IActionResult Create()
         {
@@ -62,6 +64,7 @@ namespace Timmer.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("ProductID,Image,Url,Title,Description,NewUsed,StockNumber,Year,Hours,EngineHorsePower,Drive,SerialNumber,Price,Model,ProductCategoryID,ProductLocationID,ProductMakeID")] Product product)
         {
             if (ModelState.IsValid)
@@ -77,6 +80,7 @@ namespace Timmer.Web.Controllers
         }
 
         // GET: Products/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -100,6 +104,7 @@ namespace Timmer.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("ProductID,Image,Url,Title,Description,NewUsed,StockNumber,Year,Hours,EngineHorsePower,Drive,SerialNumber,Price,Model,ProductCategoryID,ProductLocationID,ProductMakeID")] Product product)
         {
             if (id != product.ProductID)
@@ -134,6 +139,7 @@ namespace Timmer.Web.Controllers
         }
 
         // GET: Products/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -157,6 +163,7 @@ namespace Timmer.Web.Controllers
         // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var product = await _context.Products.FindAsync(id);

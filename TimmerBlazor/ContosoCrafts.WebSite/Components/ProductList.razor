@@ -1,0 +1,148 @@
+﻿@using ContosoCrafts.WebSite.Models
+@using ContosoCrafts.WebSite.Services
+@inject JsonFileProductService ProductService
+
+<div class="container-fluid">
+    @if (Products != null && Products.Count > 0)
+    {
+        @foreach (var product in Products)
+        {
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12 mt-3">
+                        <div class="card">
+                            <div class="card-horizontal">
+                                <div class="img-square-wrapper col-md-12">
+                                    <h4 class="card-title">@product.Title</h4>
+
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="card-img" style="background-image: url('@product.Image');"></div>
+                                        </div>
+
+                                        <div class="col-md-9">
+                                            <p class="card-text">Category : @product.Category</p>
+                                            <p class="card-text">Maker : @product.Maker</p>
+                                            <p class="card-text">Model : @product.Model</p>
+                                            <p class="card-text">Type : @product.UsedType</p>
+                                            <p class="card-text">Location : @product.Location</p>
+                                            <p class="card-text">Stock : @product.Stock</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="card-body">
+                                        <small class="text-muted">
+                                            <button class="btn btn-dark" @onclick="(e => SelectProduct(product.Id))"
+                                                    data-toggle="modal" data-target="#productModal" classs="btn btn-primary">
+                                                More Info
+                                            </button>
+                                        </small>
+                                    </div>
+                                    <div class="card-footer">
+                                        <small class="text-muted">Last updated 3 mins ago</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <center>
+            <h4 class="card-title pt-3">No Product Found</h4>
+        </center>
+    }
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+@if (selectedProduct != null)
+{
+    <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="productTitle" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="productTitle">@selectedProduct.Title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card">
+                        <div class="card-img" style="background-image: url('@selectedProduct.Image');">
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">@selectedProduct.Title</p>
+                            <p class="card-text">@selectedProduct.Description</p>
+                            <p class="card-text">Category : @selectedProduct.Category</p>
+                            <p class="card-text">Maker : @selectedProduct.Maker</p>
+                            <p class="card-text">Model : @selectedProduct.Model</p>
+                            <p class="card-text">Type : @selectedProduct.UsedType</p>
+                            <p class="card-text">Location : @selectedProduct.Location</p>
+                            <p class="card-text">Stock : @selectedProduct.Stock</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+
+    [Parameter]
+    public IList<Product> Products { get; set; }
+
+    [Parameter]
+    public Action<IList<Product>> ProductsChanged { get; set; }
+
+
+    Product selectedProduct;
+    string selectedProductId;
+
+    int currentRating = 0;
+    int voteCount = 0;
+    string votelabel;
+
+    void SelectProduct(string productId)
+    {
+        selectedProductId = productId;
+        selectedProduct = ProductService.GetProducts().First(x => x.Id == productId);
+        GetCurrentRating();
+    }
+
+    void GetCurrentRating()
+    {
+        if (selectedProduct.Ratings == null)
+        {
+            currentRating = 0;
+            voteCount = 0;
+        }
+        {
+            voteCount = selectedProduct.Ratings != null ? selectedProduct.Ratings.Count() : 0;
+            votelabel = voteCount > 1 ? "Votes" : "Vote";
+
+            if (voteCount > 0 && selectedProduct.Ratings != null)
+            {
+                currentRating = selectedProduct.Ratings.Sum() / voteCount;
+            }
+            else
+            {
+                currentRating = 0;
+            }
+        }
+        System.Console.WriteLine($"Current rating for {selectedProduct.Id}:{currentRating}");
+    }
+
+    void SubmitRating(int rating)
+    {
+        System.Console.WriteLine($"Current rating for {selectedProduct.Id}:{rating}");
+        ProductService.AddRating(selectedProductId, rating);
+        SelectProduct(selectedProductId);
+    }
+}

@@ -1,0 +1,70 @@
+﻿@page "/inventory"
+@using ContosoCrafts.WebSite.Components
+@using ContosoCrafts.WebSite.Models
+@using ContosoCrafts.WebSite.Services
+@inject JsonFileProductService ProductService
+
+<div class="sidebar">
+    <h1>Detail Search</h1>
+    <form>
+        <div class="col">
+            <label for="SideSearchLabel">Category</label>
+            <select class="form-control" id="StudentGender" name="StudentGender" @bind="product.Category">
+                <option></option>
+                <option>Tractors</option>
+                <option>Skid Steer</option>
+                <option>Hay & Forage</option>
+            </select>
+        </div>
+        <div class="col">
+            <label for="SideSearchLabel">Make</label>
+            <input type="text" class="form-control" @bind="product.Maker" placeholder="Make">
+        </div>
+        <div class="col">
+            <label for="SideSearchLabel">Model</label>
+            <input type="text" class="form-control" @bind="product.Model" placeholder="Model">
+        </div>
+        <div class="col">
+            <label for="SideSearchLabel">New Or Used</label>
+            <select class="form-control" id="StudentGender" @bind="product.UsedType" name="StudentGender">
+                <option></option>
+                <option>New</option>
+                <option>Used</option>
+            </select>
+        </div>
+        <div class="col">
+            <label for="SideSearchLabel">Location</label>
+            <select class="form-control" id="StudentGender" @bind="product.Location" name="StudentGender">
+                <option></option>
+                <option>Aitkin</option>
+                <option>Milaca</option>
+            </select>
+        </div>
+        <div class="col">
+            <label for="SideSearchLabel">Stock #</label>
+            <input type="text" class="form-control" placeholder="Stock #" @bind="product.Stock">
+        </div>
+        <button type="button" class="btn btn-secondary btn-lg btn-block" @onclick="SearchProduct">Submit</button>
+    </form>
+</div>
+
+<div class="content">
+    <ProductList @bind-Products="Products" />
+</div>
+
+
+@code {
+    IList<Product> Products = null;
+    Product product = new Product();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Products = ProductService.SearchProducts(product);
+    }
+
+    void SearchProduct()
+    {
+        Products = ProductService.SearchProducts(product);
+    }
+
+}

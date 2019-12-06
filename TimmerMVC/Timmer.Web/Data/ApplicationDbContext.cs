@@ -6,7 +6,7 @@ using Timmer.Web.Models;
 
 namespace Timmer.Web.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -40,14 +40,11 @@ namespace Timmer.Web.Data
                 NormalizedName = "ADMIN"
             });
 
-            string Admin1Guid = Guid.NewGuid().ToString();
-            string Admin2Guid = Guid.NewGuid().ToString();
-            string StandardUser1Guid = Guid.NewGuid().ToString();
-            string StandardUser2Guid = Guid.NewGuid().ToString();
+            string Admin1Guid = "208d8e27-bcce-459d-bcab-b77e1327f5d6";
+            
+            var hasher = new PasswordHasher<IdentityUser>();
 
-            var hasher = new PasswordHasher<ApplicationUser>();
-
-            modelBuilder.Entity<ApplicationUser>().HasData(new ApplicationUser
+            modelBuilder.Entity<IdentityUser>().HasData(new IdentityUser
             {
                 Id = Admin1Guid,
                 UserName = "admin@timmer.com",
@@ -57,6 +54,13 @@ namespace Timmer.Web.Data
                 EmailConfirmed = true,
                 PasswordHash = hasher.HashPassword(null, "P@55word"),
                 SecurityStamp = string.Empty
+            });
+
+            
+            modelBuilder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
+            {
+                UserId = Admin1Guid,
+                RoleId = AdminRoleID
             });
 
             #endregion

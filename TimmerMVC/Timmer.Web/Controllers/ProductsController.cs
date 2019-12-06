@@ -23,8 +23,27 @@ namespace Timmer.Web.Controllers
         // GET: Products
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Products.Include(p => p.ProductCategory).Include(p => p.ProductLocation).Include(p => p.ProductMake);
-            return View(await applicationDbContext.ToListAsync());
+            ViewBag.ProductCategoryID = new SelectList(_context.ProductCategories.OrderBy(o=>o.Name), "ProductCategoryID", "Name");
+            ViewBag.ProductMakeID = new SelectList(_context.ProductMake.OrderBy(o => o.Name), "ProductMakeID", "Name");
+            ViewBag.ProductLocationID = new SelectList(_context.ProductLocations.OrderBy(o => o.Name), "ProductLocationID", "Name");
+
+            var product = new Product();
+            return View(product);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> GetProducts(Product product)
+        {
+            var model = _context.Products.Include(p => p.ProductCategory).Include(p => p.ProductLocation).Include(p => p.ProductMake).Where(x =>
+            (product.ProductCategoryID == 0 || x.ProductCategoryID == product.ProductCategoryID) &&
+            (product.ProductMakeID == 0 || x.ProductMakeID == product.ProductMakeID) &&
+            (string.IsNullOrWhiteSpace(product.Model) || x.Model.ToLower().Contains(product.Model.ToLower())) &&
+            (product.NewUsed == 0 || x.NewUsed == product.NewUsed) &&
+            (product.ProductLocationID == 0 || x.ProductLocationID == product.ProductLocationID) &&
+            (string.IsNullOrWhiteSpace(product.StockNumber) || x.StockNumber.ToLower().Contains(product.StockNumber.ToLower()))
+            );
+
+            return PartialView("_Products", await model.ToListAsync());
         }
 
         // GET: Products/Details/5

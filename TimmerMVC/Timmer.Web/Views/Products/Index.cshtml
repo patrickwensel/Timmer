@@ -1,14 +1,12 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
-
-@model IEnumerable<Timmer.Web.Models.Product>
-
+@model Timmer.Web.Models.Product
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Products";
 }
 
-<h1>Index</h1>
+<h1>Products</h1>
 
 @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
 {
@@ -16,69 +14,79 @@
         <a asp-action="Create">Create New</a>
     </p>
 }
-<table class="table">
-    <thead>
-        <tr>
-            <th>
 
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
+<form id="frmProduct">
+    <div class="row">
+        <div class="col-md-2">
+            <label class="control-label" asp-for="ProductCategoryID"></label>
+            <select class="form-control" asp-for="ProductCategoryID" asp-items="@((IEnumerable<SelectListItem>)ViewBag.ProductCategoryID)">
+                <option value="0">All Categories</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <label class="control-label" asp-for="ProductMakeID"></label>
+            <select class="form-control" asp-for="ProductMakeID" asp-items="@((IEnumerable<SelectListItem>)ViewBag.ProductMakeID)">
+                <option value="0">All Makers</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <label class="control-label" asp-for="Model"></label>
+            <input class="form-control" asp-for="Model" type="text" />
+        </div>
+        <div class="col-md-2">
+            <label class="control-label" asp-for="NewUsed"></label>
+            <select asp-for="NewUsed" class="form-control">
+                <option value="0">All</option>
+                <option value="1">New</option>
+                <option value="2">Used</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <label class="control-label" asp-for="ProductLocationID"></label>
+            <select asp-for="ProductLocationID" class="form-control" asp-items="@((IEnumerable<SelectListItem>)ViewBag.ProductLocationID)">
+                <option value="0">All Locations</option>
+            </select>
+        </div>
+        <div class="col-md-2">
+            <label class="control-label" asp-for="StockNumber"></label>
+            <input class="form-control" asp-for="StockNumber" type="text"/>
+        </div>
+    </div>
 
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    <img src="@Html.DisplayFor(modelItem => item.Image)" />
-                </td>
-                <td>
-                    @Html.DisplayNameFor(model => model.ProductCategory): @Html.DisplayFor(modelItem => item.ProductCategory.Name)
-                    <br />
-                    @Html.DisplayNameFor(model => model.ProductMake): @Html.DisplayFor(modelItem => item.ProductMake.Name)
-                    <br />
-                    @Html.DisplayNameFor(model => model.Model): @Html.DisplayFor(modelItem => item.Model)
-                    <br />
-                    @Html.DisplayNameFor(model => model.ProductLocation): @Html.DisplayFor(modelItem => item.ProductLocation.Name)
-                    <br />
-                    @Html.DisplayNameFor(model => model.Title): @Html.DisplayFor(modelItem => item.Title)
-                    <br />
-                    @Html.DisplayNameFor(model => model.Description): @Html.DisplayFor(modelItem => item.Description)
-                    <br />
-                    @Html.DisplayNameFor(model => model.NewUsed): @Html.DisplayFor(modelItem => item.NewUsed)
-                    <br />
-                    @Html.DisplayNameFor(model => model.StockNumber): @Html.DisplayFor(modelItem => item.StockNumber)
-                    <br />
-                    @Html.DisplayNameFor(model => model.Year): @Html.DisplayFor(modelItem => item.Year)
-                    <br />
-                    @Html.DisplayNameFor(model => model.Hours): @Html.DisplayFor(modelItem => item.Hours)
-                    <br />
-                    @Html.DisplayNameFor(model => model.EngineHorsePower): @Html.DisplayFor(modelItem => item.EngineHorsePower)
-                    <br />
-                    @Html.DisplayNameFor(model => model.Drive): @Html.DisplayFor(modelItem => item.Drive)
-                    <br />
-                    @Html.DisplayNameFor(model => model.SerialNumber): @Html.DisplayFor(modelItem => item.SerialNumber)
-                    <br />
-                    @Html.DisplayNameFor(model => model.Price): @Html.DisplayFor(modelItem => item.Price)
-                    <br />
+    <div class="row">
+        <div class="col-md-2">
+            <br />
+            <button type="button" onclick="searchProduct();" class="btn btn-primary">Search</button>
+        </div>
+    </div>
+</form>
+<br />
 
-                </td>
-                <td>
-                    @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
-                    {
-                        <a asp-action="Edit" asp-route-id="@item.ProductID">Edit</a> <span>|</span>
-                    }
-                    <a asp-action="Details" asp-route-id="@item.ProductID">Details</a>
-                    @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
-                    {
-                        <span>|</span> <a asp-action="Delete" asp-route-id="@item.ProductID">Delete</a>
-                    }
-                </td>
-            </tr>
+<div id="productList"></div>
+
+
+@section Scripts{
+    <script>
+        $(document).ready(function (e) {
+            searchProduct();
+        });
+
+        function searchProduct() {
+            var product = $("#frmProduct").serialize();
+
+            $.ajax({
+            url: '@Url.Action("GetProducts")',
+            type: 'POST',
+                data: product,
+                dataType :"html",
+                error: function (xhr) {
+                    alert('Error: ' + xhr.statusText);
+            },
+            success: function (result) {
+                $('#productList').html(result);
+            }
+             });
         }
-    </tbody>
-</table>
+
+    </script>
+}

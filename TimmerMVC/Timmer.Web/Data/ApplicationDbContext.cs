@@ -89,10 +89,13 @@ namespace Timmer.Web.Data
             modelBuilder.Entity<Product>().HasData(new Product
             {
                 ProductID = 1,
+                Title= "The Quantified Cactus: An Easy Plant Soil Moisture Sensor",
                 ProductCategoryID = 1,
                 ProductLocationID = 1,
                 ProductMakeID = 2,
                 Model = "T7.245",
+                NewUsed =1,
+                StockNumber ="S29",
                 Image = "https://media.sandhills.com/img.axd?id=4129650021&wid=4326205933&rwl=False&p=&ext=&w=500&h=375&t=&lp=TH&c=True&wt=False&sz=Max&rt=0&checksum=OTHmW%2bJcC744MSwlghua8l5qgov4SDlkUwyvJA1pyYg%3d"
             });
 

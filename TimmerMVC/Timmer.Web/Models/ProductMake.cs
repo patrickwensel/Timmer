@@ -6,6 +6,7 @@ namespace Timmer.Web.Models
     {
         [Key]
         public int ProductMakeID { get; set; }
+        [Required]
         public string Name { get; set; }
     }
 }

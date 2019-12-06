@@ -57,6 +57,7 @@
         <div class="col-md-2">
             <br />
             <button type="button" onclick="searchProduct();" class="btn btn-primary">Search</button>
+            <button type="button" onclick="resetSearch();" class="btn btn-secondary">Reset</button>
         </div>
     </div>
 </form>
@@ -86,6 +87,11 @@
                 $('#productList').html(result);
             }
              });
+        }
+
+        function resetSearch() {
+            $("#frmProduct")[0].reset()
+            searchProduct();
         }
 
     </script>

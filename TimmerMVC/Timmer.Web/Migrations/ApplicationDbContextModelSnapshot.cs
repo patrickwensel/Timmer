@@ -49,14 +49,14 @@ namespace Timmer.Web.Migrations
                         new
                         {
                             Id = "56e7b432-2e9d-4704-8b18-a4f8a2433147",
-                            ConcurrencyStamp = "102ad9d8-c20e-4506-ae9a-c7d358c3313b",
+                            ConcurrencyStamp = "efa75165-e942-49f8-acfb-bbcda465470d",
                             Name = "StandardUser",
                             NormalizedName = "StandardUser"
                         },
                         new
                         {
                             Id = "55b0bdc5-4d84-49fc-af9a-fb7d203b0a18",
-                            ConcurrencyStamp = "8f51dfb7-5789-4c3a-8b49-17c60f12347c",
+                            ConcurrencyStamp = "316a1db1-80a8-42e1-b89b-c7018dce3df2",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -155,13 +155,13 @@ namespace Timmer.Web.Migrations
                         {
                             Id = "208d8e27-bcce-459d-bcab-b77e1327f5d6",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "00b75216-69e3-48c7-b2b3-0c8a9d1371b4",
+                            ConcurrencyStamp = "f79bb09c-0269-40d7-9f8a-bc6f8896ec38",
                             Email = "admin@timmer.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "admin@timmer.com",
                             NormalizedUserName = "admin@timmer.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGwgZJb98aGhJQ5rznbf71wlwpnPOOQ6CFz2KpOq+lgS3yRurYvS+dnuw/wFVa321g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIfSWOM1Cmn+kjK2T/2vJEFOKJ0W0oRVYbfNkkYvo0oTxje2kXaMszqVN/cdV7Gl4A==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "",
                             TwoFactorEnabled = false,
@@ -280,9 +280,11 @@ namespace Timmer.Web.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Image")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Model")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("NewUsed")
@@ -304,9 +306,11 @@ namespace Timmer.Web.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("StockNumber")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Url")
@@ -333,11 +337,13 @@ namespace Timmer.Web.Migrations
                             Hours = 0,
                             Image = "https://media.sandhills.com/img.axd?id=4129650021&wid=4326205933&rwl=False&p=&ext=&w=500&h=375&t=&lp=TH&c=True&wt=False&sz=Max&rt=0&checksum=OTHmW%2bJcC744MSwlghua8l5qgov4SDlkUwyvJA1pyYg%3d",
                             Model = "T7.245",
-                            NewUsed = 0,
+                            NewUsed = 1,
                             Price = 0.0,
                             ProductCategoryID = 1,
                             ProductLocationID = 1,
                             ProductMakeID = 2,
+                            StockNumber = "S29",
+                            Title = "The Quantified Cactus: An Easy Plant Soil Moisture Sensor",
                             Year = 0
                         });
                 });
@@ -350,6 +356,7 @@ namespace Timmer.Web.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ProductCategoryID");
@@ -407,6 +414,7 @@ namespace Timmer.Web.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ProductLocationID");
@@ -434,6 +442,7 @@ namespace Timmer.Web.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ProductMakeID");

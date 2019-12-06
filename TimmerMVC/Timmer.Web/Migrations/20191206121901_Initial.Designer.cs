@@ -10,8 +10,8 @@ using Timmer.Web.Data;
 namespace Timmer.Web.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20191206075041_User")]
-    partial class User
+    [Migration("20191206121901_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -51,14 +51,14 @@ namespace Timmer.Web.Migrations
                         new
                         {
                             Id = "56e7b432-2e9d-4704-8b18-a4f8a2433147",
-                            ConcurrencyStamp = "76ff0c09-fb1d-4653-8ed8-9e8cd01d29dd",
+                            ConcurrencyStamp = "efa75165-e942-49f8-acfb-bbcda465470d",
                             Name = "StandardUser",
                             NormalizedName = "StandardUser"
                         },
                         new
                         {
                             Id = "55b0bdc5-4d84-49fc-af9a-fb7d203b0a18",
-                            ConcurrencyStamp = "05081087-e9b9-4c75-ad5a-92de3ad20d1b",
+                            ConcurrencyStamp = "316a1db1-80a8-42e1-b89b-c7018dce3df2",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         });
@@ -98,10 +98,6 @@ namespace Timmer.Web.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
@@ -156,7 +152,23 @@ namespace Timmer.Web.Migrations
 
                     b.ToTable("AspNetUsers");
 
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
+                    b.HasData(
+                        new
+                        {
+                            Id = "208d8e27-bcce-459d-bcab-b77e1327f5d6",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "f79bb09c-0269-40d7-9f8a-bc6f8896ec38",
+                            Email = "admin@timmer.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "admin@timmer.com",
+                            NormalizedUserName = "admin@timmer.com",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIfSWOM1Cmn+kjK2T/2vJEFOKJ0W0oRVYbfNkkYvo0oTxje2kXaMszqVN/cdV7Gl4A==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "",
+                            TwoFactorEnabled = false,
+                            UserName = "admin@timmer.com"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -220,6 +232,13 @@ namespace Timmer.Web.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "208d8e27-bcce-459d-bcab-b77e1327f5d6",
+                            RoleId = "55b0bdc5-4d84-49fc-af9a-fb7d203b0a18"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -263,9 +282,11 @@ namespace Timmer.Web.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Image")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Model")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("NewUsed")
@@ -287,9 +308,11 @@ namespace Timmer.Web.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("StockNumber")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Url")
@@ -316,11 +339,13 @@ namespace Timmer.Web.Migrations
                             Hours = 0,
                             Image = "https://media.sandhills.com/img.axd?id=4129650021&wid=4326205933&rwl=False&p=&ext=&w=500&h=375&t=&lp=TH&c=True&wt=False&sz=Max&rt=0&checksum=OTHmW%2bJcC744MSwlghua8l5qgov4SDlkUwyvJA1pyYg%3d",
                             Model = "T7.245",
-                            NewUsed = 0,
+                            NewUsed = 1,
                             Price = 0.0,
                             ProductCategoryID = 1,
                             ProductLocationID = 1,
                             ProductMakeID = 2,
+                            StockNumber = "S29",
+                            Title = "The Quantified Cactus: An Easy Plant Soil Moisture Sensor",
                             Year = 0
                         });
                 });
@@ -333,6 +358,7 @@ namespace Timmer.Web.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ProductCategoryID");
@@ -390,6 +416,7 @@ namespace Timmer.Web.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ProductLocationID");
@@ -417,6 +444,7 @@ namespace Timmer.Web.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ProductMakeID");
@@ -453,37 +481,6 @@ namespace Timmer.Web.Migrations
                         {
                             ProductMakeID = 6,
                             Name = "International"
-                        });
-                });
-
-            modelBuilder.Entity("Timmer.Web.Models.ApplicationUser", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
-
-                    b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasDiscriminator().HasValue("ApplicationUser");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "a86e84d8-030e-4f8d-8ace-f76d18b93e73",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "f033e300-293a-44f6-add9-732aa80fc2e3",
-                            Email = "admin@timmer.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "admin@timmer.com",
-                            NormalizedUserName = "admin@timmer.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGLc/pj4uJ1g0i5jsdMq+sb00k7U0iBQofRvvbQSTgz9HzHk7osrQ9f359YA6rGgVg==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "",
-                            TwoFactorEnabled = false,
-                            UserName = "admin@timmer.com"
                         });
                 });
 

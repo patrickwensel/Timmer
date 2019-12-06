@@ -12,18 +12,7 @@
     <div class="col-md-4">
 		<form asp-action="Create">
 			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
-			<div class="form-group">
-				<label asp-for="ProductCategoryID" class="control-label"></label>
-				<select asp-for="ProductCategoryID" class="form-control" asp-items="@((IEnumerable<SelectListItem>)ViewBag.ProductCategoryID)"></select>
-			</div>
-			@*<div class="form-group">
-				<label asp-for="ProductLocationID" class="control-label"></label>
-				<select asp-for="ProductLocationID" class="form-control" asp-items="ViewBag.ProductLocationID"></select>
-			</div>
-			<div class="form-group">
-				<label asp-for="ProductMakeID" class="control-label"></label>
-				<select asp-for="ProductMakeID" class="form-control" asp-items="ViewBag.ProductMakeID"></select>
-			</div>*@
+
 			<div class="form-group">
 				<label asp-for="Image" class="control-label"></label>
 				<input asp-for="Image" class="form-control" />
@@ -34,6 +23,7 @@
 				<input asp-for="Url" class="form-control" />
 				<span asp-validation-for="Url" class="text-danger"></span>
 			</div>
+
 			<div class="form-group">
 				<label asp-for="Title" class="control-label"></label>
 				<input asp-for="Title" class="form-control" />
@@ -46,9 +36,13 @@
 			</div>
 			<div class="form-group">
 				<label asp-for="NewUsed" class="control-label"></label>
-				<input asp-for="NewUsed" class="form-control" />
+				<select asp-for="NewUsed" class="form-control">
+					<option value="1">New</option>
+					<option value="2">Used</option>
+				</select>
 				<span asp-validation-for="NewUsed" class="text-danger"></span>
 			</div>
+
 			<div class="form-group">
 				<label asp-for="StockNumber" class="control-label"></label>
 				<input asp-for="StockNumber" class="form-control" />
@@ -64,6 +58,7 @@
 				<input asp-for="Hours" class="form-control" />
 				<span asp-validation-for="Hours" class="text-danger"></span>
 			</div>
+
 			<div class="form-group">
 				<label asp-for="EngineHorsePower" class="control-label"></label>
 				<input asp-for="EngineHorsePower" class="form-control" />
@@ -79,6 +74,7 @@
 				<input asp-for="SerialNumber" class="form-control" />
 				<span asp-validation-for="SerialNumber" class="text-danger"></span>
 			</div>
+
 			<div class="form-group">
 				<label asp-for="Price" class="control-label"></label>
 				<input asp-for="Price" class="form-control" />
@@ -88,6 +84,28 @@
 				<label asp-for="Model" class="control-label"></label>
 				<input asp-for="Model" class="form-control" />
 				<span asp-validation-for="Model" class="text-danger"></span>
+			</div>
+
+			<div class="form-group">
+				<label asp-for="ProductCategoryID" class="control-label"></label>
+				<select asp-for="ProductCategoryID" class="form-control" asp-items="@((IEnumerable<SelectListItem>)ViewBag.ProductCategoryID)">
+					<option value="">Select Category</option>
+				</select>
+				<span asp-validation-for="ProductCategoryID" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="ProductLocationID" class="control-label"></label>
+				<select asp-for="ProductLocationID" class="form-control" asp-items="@((IEnumerable<SelectListItem>)ViewBag.ProductLocationID)">
+					<option value="">Select Location</option>
+				</select>
+				<span asp-validation-for="ProductLocationID" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="ProductMakeID" class="control-label"></label>
+				<select asp-for="ProductMakeID" class="form-control" asp-items="@((IEnumerable<SelectListItem>)ViewBag.ProductMakeID)">
+					<option value="">Select Maker</option>
+				</select>
+				<span asp-validation-for="ProductMakeID" class="text-danger"></span>
 			</div>
 
 			<div class="form-group">

@@ -39,9 +39,7 @@ namespace Timmer.Web.Migrations
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false),
-                    FirstName = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true)
+                    AccessFailedCount = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -54,7 +52,7 @@ namespace Timmer.Web.Migrations
                 {
                     ProductCategoryID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -67,7 +65,7 @@ namespace Timmer.Web.Migrations
                 {
                     ProductLocationID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -80,7 +78,7 @@ namespace Timmer.Web.Migrations
                 {
                     ProductMakeID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -199,19 +197,19 @@ namespace Timmer.Web.Migrations
                 {
                     ProductID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Image = table.Column<string>(nullable: true),
+                    Image = table.Column<string>(nullable: false),
                     Url = table.Column<string>(nullable: true),
-                    Title = table.Column<string>(nullable: true),
+                    Title = table.Column<string>(nullable: false),
                     Description = table.Column<string>(nullable: true),
                     NewUsed = table.Column<int>(nullable: false),
-                    StockNumber = table.Column<string>(nullable: true),
+                    StockNumber = table.Column<string>(nullable: false),
                     Year = table.Column<int>(nullable: false),
                     Hours = table.Column<int>(nullable: false),
                     EngineHorsePower = table.Column<int>(nullable: false),
                     Drive = table.Column<string>(nullable: true),
                     SerialNumber = table.Column<string>(nullable: true),
                     Price = table.Column<double>(nullable: false),
-                    Model = table.Column<string>(nullable: true),
+                    Model = table.Column<string>(nullable: false),
                     ProductCategoryID = table.Column<int>(nullable: false),
                     ProductLocationID = table.Column<int>(nullable: false),
                     ProductMakeID = table.Column<int>(nullable: false)
@@ -244,14 +242,14 @@ namespace Timmer.Web.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "56e7b432-2e9d-4704-8b18-a4f8a2433147", "882a22fe-e53a-4eba-a0e6-544d6d251814", "StandardUser", "StandardUser" },
-                    { "55b0bdc5-4d84-49fc-af9a-fb7d203b0a18", "86f5a11e-681f-4a27-a051-ca8e0c097d81", "Admin", "ADMIN" }
+                    { "56e7b432-2e9d-4704-8b18-a4f8a2433147", "efa75165-e942-49f8-acfb-bbcda465470d", "StandardUser", "StandardUser" },
+                    { "55b0bdc5-4d84-49fc-af9a-fb7d203b0a18", "316a1db1-80a8-42e1-b89b-c7018dce3df2", "Admin", "ADMIN" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "049cd165-caf4-4ead-afcc-b03187e1975d", 0, "e23080be-91b6-4993-b86d-f3d50e368261", "admin@timmer.com", true, null, null, false, null, "admin@timmer.com", "admin@timmer.com", "AQAAAAEAACcQAAAAEHV/Rk9zPra+/NUpcTxDqdH72uKwtVCFbRseh06+T0EoRvAH2dU1/HNvxVQ6DdMwIQ==", null, false, "", false, "admin@timmer.com" });
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { "208d8e27-bcce-459d-bcab-b77e1327f5d6", 0, "f79bb09c-0269-40d7-9f8a-bc6f8896ec38", "admin@timmer.com", true, false, null, "admin@timmer.com", "admin@timmer.com", "AQAAAAEAACcQAAAAEIfSWOM1Cmn+kjK2T/2vJEFOKJ0W0oRVYbfNkkYvo0oTxje2kXaMszqVN/cdV7Gl4A==", null, false, "", false, "admin@timmer.com" });
 
             migrationBuilder.InsertData(
                 table: "ProductCategories",
@@ -291,9 +289,14 @@ namespace Timmer.Web.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "AspNetUserRoles",
+                columns: new[] { "UserId", "RoleId" },
+                values: new object[] { "208d8e27-bcce-459d-bcab-b77e1327f5d6", "55b0bdc5-4d84-49fc-af9a-fb7d203b0a18" });
+
+            migrationBuilder.InsertData(
                 table: "Products",
                 columns: new[] { "ProductID", "Description", "Drive", "EngineHorsePower", "Hours", "Image", "Model", "NewUsed", "Price", "ProductCategoryID", "ProductLocationID", "ProductMakeID", "SerialNumber", "StockNumber", "Title", "Url", "Year" },
-                values: new object[] { 1, null, null, 0, 0, "https://media.sandhills.com/img.axd?id=4129650021&wid=4326205933&rwl=False&p=&ext=&w=500&h=375&t=&lp=TH&c=True&wt=False&sz=Max&rt=0&checksum=OTHmW%2bJcC744MSwlghua8l5qgov4SDlkUwyvJA1pyYg%3d", "T7.245", 0, 0.0, 1, 1, 2, null, null, null, null, 0 });
+                values: new object[] { 1, null, null, 0, 0, "https://media.sandhills.com/img.axd?id=4129650021&wid=4326205933&rwl=False&p=&ext=&w=500&h=375&t=&lp=TH&c=True&wt=False&sz=Max&rt=0&checksum=OTHmW%2bJcC744MSwlghua8l5qgov4SDlkUwyvJA1pyYg%3d", "T7.245", 1, 0.0, 1, 1, 2, null, "S29", "The Quantified Cactus: An Easy Plant Soil Moisture Sensor", null, 0 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

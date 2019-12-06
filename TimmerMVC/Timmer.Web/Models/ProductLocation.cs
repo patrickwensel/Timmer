@@ -6,6 +6,7 @@ namespace Timmer.Web.Models
     {
         [Key]
         public int ProductLocationID { get; set; }
+        [Required]
         public string Name { get; set; }
     }
 }

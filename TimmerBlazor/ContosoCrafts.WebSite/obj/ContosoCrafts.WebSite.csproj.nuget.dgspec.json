@@ -1,24 +1,26 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Project\\Contos\\New\\ContosoCrafts.WebSite\\ContosoCrafts.WebSite\\ContosoCrafts.WebSite.csproj": {}
+    "C:\\Users\\pwens\\source\\repos\\Timmer\\TimmerBlazor\\ContosoCrafts.WebSite\\ContosoCrafts.WebSite.csproj": {}
   },
   "projects": {
-    "E:\\Project\\Contos\\New\\ContosoCrafts.WebSite\\ContosoCrafts.WebSite\\ContosoCrafts.WebSite.csproj": {
+    "C:\\Users\\pwens\\source\\repos\\Timmer\\TimmerBlazor\\ContosoCrafts.WebSite\\ContosoCrafts.WebSite.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Project\\Contos\\New\\ContosoCrafts.WebSite\\ContosoCrafts.WebSite\\ContosoCrafts.WebSite.csproj",
+        "projectUniqueName": "C:\\Users\\pwens\\source\\repos\\Timmer\\TimmerBlazor\\ContosoCrafts.WebSite\\ContosoCrafts.WebSite.csproj",
         "projectName": "ContosoCrafts.WebSite",
-        "projectPath": "E:\\Project\\Contos\\New\\ContosoCrafts.WebSite\\ContosoCrafts.WebSite\\ContosoCrafts.WebSite.csproj",
-        "packagesPath": "C:\\Users\\CPT004\\.nuget\\packages\\",
-        "outputPath": "E:\\Project\\Contos\\New\\ContosoCrafts.WebSite\\ContosoCrafts.WebSite\\obj\\",
+        "projectPath": "C:\\Users\\pwens\\source\\repos\\Timmer\\TimmerBlazor\\ContosoCrafts.WebSite\\ContosoCrafts.WebSite.csproj",
+        "packagesPath": "C:\\Users\\pwens\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\pwens\\source\\repos\\Timmer\\TimmerBlazor\\ContosoCrafts.WebSite\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\CPT004\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\pwens\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.0"
@@ -26,7 +28,6 @@
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {},
-          "https://nuget.devexpress.com/2Gzx2MbLmJWEeNrxMrBLY4WUEWp74CWDbHldHhbAdmYRYlzxwH/api": {},
           "https://nuget.telerik.com/nuget": {}
         },
         "frameworks": {
@@ -70,7 +71,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }

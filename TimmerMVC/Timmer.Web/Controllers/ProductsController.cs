@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using Timmer.Web.Data;
 using Timmer.Web.Models;
 
@@ -50,9 +50,10 @@ namespace Timmer.Web.Controllers
         // GET: Products/Create
         public IActionResult Create()
         {
-            ViewData["ProductCategoryID"] = new SelectList(_context.ProductCategories, "ProductCategoryID", "ProductCategoryID");
-            ViewData["ProductLocationID"] = new SelectList(_context.ProductLocations, "ProductLocationID", "ProductLocationID");
-            ViewData["ProductMakeID"] = new SelectList(_context.ProductMake, "ProductMakeID", "ProductMakeID");
+            ViewData["ProductCategoryID"] = new SelectList(_context.ProductCategories, "ProductCategoryID", "ProductCategory.Name");
+            ViewData["ProductLocationID"] = new SelectList(_context.ProductLocations, "ProductLocationID", "ProductLocation.Name");
+            var x = new SelectList(_context.ProductMake, "ProductMakeID", "ProductMake.Name");
+            ViewData["ProductMakeID"] = x;
             return View();
         }
 

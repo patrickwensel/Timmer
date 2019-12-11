@@ -23,7 +23,7 @@ namespace Timmer.Web.Controllers
         // GET: Products
         public async Task<IActionResult> Index()
         {
-            ViewBag.ProductCategoryID = new SelectList(_context.ProductCategories.OrderBy(o=>o.Name), "ProductCategoryID", "Name");
+            ViewBag.ProductCategoryID = new SelectList(_context.ProductCategories.OrderBy(o => o.Name), "ProductCategoryID", "Name");
             ViewBag.ProductMakeID = new SelectList(_context.ProductMake.OrderBy(o => o.Name), "ProductMakeID", "Name");
             ViewBag.ProductLocationID = new SelectList(_context.ProductLocations.OrderBy(o => o.Name), "ProductLocationID", "Name");
 
@@ -71,7 +71,7 @@ namespace Timmer.Web.Controllers
         // GET: Products/Create
         public IActionResult Create()
         {
-            ViewBag.ProductCategoryID = new SelectList(_context.ProductCategories.OrderBy(x=>x.Name), "ProductCategoryID", "Name");
+            ViewBag.ProductCategoryID = new SelectList(_context.ProductCategories.OrderBy(x => x.Name), "ProductCategoryID", "Name");
             ViewBag.ProductLocationID = new SelectList(_context.ProductLocations.OrderBy(x => x.Name), "ProductLocationID", "Name");
             ViewBag.ProductMakeID = new SelectList(_context.ProductMake.OrderBy(x => x.Name), "ProductMakeID", "Name");
             return View();
@@ -112,7 +112,7 @@ namespace Timmer.Web.Controllers
             {
                 return NotFound();
             }
-            
+
             ViewBag.ProductCategoryID = new SelectList(_context.ProductCategories.OrderBy(x => x.Name), "ProductCategoryID", "Name", product.ProductCategoryID);
             ViewBag.ProductLocationID = new SelectList(_context.ProductLocations.OrderBy(x => x.Name), "ProductLocationID", "Name", product.ProductLocationID);
             ViewBag.ProductMakeID = new SelectList(_context.ProductMake.OrderBy(x => x.Name), "ProductMakeID", "Name", product.ProductMakeID);

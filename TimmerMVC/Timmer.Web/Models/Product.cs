@@ -16,7 +16,7 @@ namespace Timmer.Web.Models
 
         [Required]
         public string Title { get; set; }
-        
+
         public string Description { get; set; }
 
         [Required]
@@ -43,7 +43,7 @@ namespace Timmer.Web.Models
 
         [Required]
         public string Model { get; set; }
-        
+
         [Display(Name = "Category")]
         public virtual ProductCategory ProductCategory { get; set; }
 
@@ -54,12 +54,12 @@ namespace Timmer.Web.Models
 
         [Display(Name = "Location")]
         public virtual ProductLocation ProductLocation { get; set; }
-        
+
         [Required]
         [ForeignKey("ProductLocation")]
         [Display(Name = "Location")]
         public int ProductLocationID { get; set; }
-        
+
         [Display(Name = "Make")]
         public virtual ProductMake ProductMake { get; set; }
 
@@ -67,5 +67,8 @@ namespace Timmer.Web.Models
         [ForeignKey("ProductMake")]
         [Display(Name = "Make")]
         public int ProductMakeID { get; set; }
+
+        public virtual List<ProductPhoto> ProductPhotos { get; set; }
+
     }
 }

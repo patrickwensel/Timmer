@@ -17,6 +17,7 @@ namespace Timmer.Web.Data
         public virtual DbSet<ProductCategory> ProductCategories { get; set; }
         public virtual DbSet<ProductLocation> ProductLocations { get; set; }
         public virtual DbSet<ProductMake> ProductMake { get; set; }
+        public virtual DbSet<ProductPhoto> ProductPhoto { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -41,7 +42,7 @@ namespace Timmer.Web.Data
             });
 
             string Admin1Guid = "208d8e27-bcce-459d-bcab-b77e1327f5d6";
-            
+
             var hasher = new PasswordHasher<IdentityUser>();
 
             modelBuilder.Entity<IdentityUser>().HasData(new IdentityUser
@@ -56,7 +57,7 @@ namespace Timmer.Web.Data
                 SecurityStamp = string.Empty
             });
 
-            
+
             modelBuilder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
             {
                 UserId = Admin1Guid,
@@ -89,13 +90,13 @@ namespace Timmer.Web.Data
             modelBuilder.Entity<Product>().HasData(new Product
             {
                 ProductID = 1,
-                Title= "The Quantified Cactus: An Easy Plant Soil Moisture Sensor",
+                Title = "The Quantified Cactus: An Easy Plant Soil Moisture Sensor",
                 ProductCategoryID = 1,
                 ProductLocationID = 1,
                 ProductMakeID = 2,
                 Model = "T7.245",
-                NewUsed =1,
-                StockNumber ="S29",
+                NewUsed = 1,
+                StockNumber = "S29",
                 Image = "https://media.sandhills.com/img.axd?id=4129650021&wid=4326205933&rwl=False&p=&ext=&w=500&h=375&t=&lp=TH&c=True&wt=False&sz=Max&rt=0&checksum=OTHmW%2bJcC744MSwlghua8l5qgov4SDlkUwyvJA1pyYg%3d"
             });
 

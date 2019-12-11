@@ -18,5 +18,6 @@ namespace Timmer.Web.Models
         [Display(Name = "Product")]
         public int ProductID { get; set; }
 
+        public Product Product { get; set; }
     }
 }

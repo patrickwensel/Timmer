@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Timmer.Web.Models
@@ -68,6 +69,7 @@ namespace Timmer.Web.Models
         [Display(Name = "Make")]
         public int ProductMakeID { get; set; }
 
+        [Display(Name = "Photos")]
         public virtual List<ProductPhoto> ProductPhotos { get; set; }
 
     }

@@ -21,6 +21,11 @@ namespace Timmer.Web.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // configures one-to-many relationship
+            modelBuilder.Entity<Product>()
+            .HasMany(c => c.ProductPhotos)
+            .WithOne(e => e.Product);
+
             #region Users
 
             const string StandardUserRoleID = "56e7b432-2e9d-4704-8b18-a4f8a2433147";
@@ -100,7 +105,21 @@ namespace Timmer.Web.Data
                 Image = "https://media.sandhills.com/img.axd?id=4129650021&wid=4326205933&rwl=False&p=&ext=&w=500&h=375&t=&lp=TH&c=True&wt=False&sz=Max&rt=0&checksum=OTHmW%2bJcC744MSwlghua8l5qgov4SDlkUwyvJA1pyYg%3d"
             });
 
+            modelBuilder.Entity<ProductPhoto>().HasData(new ProductPhoto
+            {
+                ProductID = 1,
+                Order = 1,
+                PhotoURL = "https://user-images.githubusercontent.com/41929050/61567051-13938600-aa33-11e9-8ae7-0b5c19aafab4.jpeg",
+                ProductPhotoID = 1
+            });
 
+            modelBuilder.Entity<ProductPhoto>().HasData(new ProductPhoto
+            {
+                ProductID = 1,
+                Order = 2,
+                PhotoURL = "https://user-images.githubusercontent.com/41929050/61567053-13938600-aa33-11e9-9780-104fe4019659.png",
+                ProductPhotoID = 2
+            });
 
             #endregion
 

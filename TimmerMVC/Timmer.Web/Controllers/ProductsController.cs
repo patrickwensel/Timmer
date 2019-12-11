@@ -58,6 +58,7 @@ namespace Timmer.Web.Controllers
                 .Include(p => p.ProductCategory)
                 .Include(p => p.ProductLocation)
                 .Include(p => p.ProductMake)
+                .Include(p => p.ProductPhotos)
                 .FirstOrDefaultAsync(m => m.ProductID == id);
             if (product == null)
             {

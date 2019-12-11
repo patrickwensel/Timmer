@@ -110,9 +110,23 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.ProductMake.Name)
         </dd>
-
-		//Todo: Add  Product Photos foreach loop
-
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.ProductPhotos)
+        </dt>
+        <dd class="col-sm-10">
+            @if (Model.ProductPhotos != null && Model.ProductPhotos.Count() > 0)
+            {
+                var ProductPhotos = Model.ProductPhotos.OrderBy(o => o.Order);
+                foreach (var ProductPhoto in ProductPhotos)
+                {
+                    <img style="width:150px" src="@Html.DisplayFor(m=>ProductPhoto.PhotoURL)" class="img-thumbnail" alt="Cinque Terre">
+                }
+            }
+            else
+            {
+                <span>Photo Not Available.</span>
+            }
+        </dd>
     </dl>
 </div>
 <div>

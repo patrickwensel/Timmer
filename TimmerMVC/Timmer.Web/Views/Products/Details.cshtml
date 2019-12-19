@@ -1,11 +1,10 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
-
 @model Timmer.Web.Models.Product
-
 @{
     ViewData["Title"] = "Details";
+    int count = 1;int thumbcount = 1;
 }
 
 <h1>Details</h1>
@@ -13,127 +12,168 @@
 <div>
     <h4>Product</h4>
     <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Image)
-        </dt>
-        <dd class="col-sm-10">
-            <img width="450" src="@Html.DisplayFor(model => model.Image)" />
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Url)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Url)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.NewUsed)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.NewUsed)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.StockNumber)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.StockNumber)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Year)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Year)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Hours)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Hours)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.EngineHorsePower)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.EngineHorsePower)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Drive)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Drive)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.SerialNumber)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.SerialNumber)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Model)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Model)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ProductCategory)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ProductCategory.Name)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ProductLocation)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ProductLocation.Name)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ProductMake)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ProductMake.Name)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ProductPhotos)
-        </dt>
-        <dd class="col-sm-10">
-            @if (Model.ProductPhotos != null && Model.ProductPhotos.Count() > 0)
-            {
-                var ProductPhotos = Model.ProductPhotos.OrderBy(o => o.Order);
-                foreach (var ProductPhoto in ProductPhotos)
-                {
-                    <img style="width:150px" src="@Html.DisplayFor(m=>ProductPhoto.PhotoURL)" class="img-thumbnail" alt="Cinque Terre">
-                }
-            }
-            else
-            {
-                <span>Photo Not Available.</span>
-            }
-        </dd>
-    </dl>
+    <div class="row">
+        <div class="col-sm-12 col-md-5">
+            <div>
+                <div class="swiper-container gallery-top swiper-container-horizontal">
+                    <div class="swiper-wrapper">
+                        <div id="img-@count" class="swiper-slide" style="background-image: url(@Model.Image);"></div>
+                        @if (Model.ProductPhotos != null && Model.ProductPhotos.Count() > 0)
+                        {
+                            var ProductPhotos = Model.ProductPhotos.OrderBy(o => o.Order);
+                            foreach (var ProductPhoto in ProductPhotos)
+                            {
+                                count++;
+                                <div id="img-@count" class="swiper-slide" style="background-image: url(@ProductPhoto.PhotoURL);"></div>
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="swiper-container gallery-thumbs swiper-container-horizontal">
+                    <div class="swiper-wrapper">
+                        <div id="sm-img-@thumbcount" class="swiper-slide" style="background-image: url(@Model.Image);"></div>
+                        @if (Model.ProductPhotos != null && Model.ProductPhotos.Count() > 0)
+                        {
+                            var ProductPhotos = Model.ProductPhotos.OrderBy(o => o.Order);
+                            foreach (var ProductPhoto in ProductPhotos)
+                            {
+                                thumbcount++;
+                                <div id="sm-img-@thumbcount" class="swiper-slide" style="background-image: url(@ProductPhoto.PhotoURL);"></div>
+                            }
+                        }
+                    </div>
+                    <div class="swiper-button-next swiper-button-red swiper-button-disabled">
+                        <svg class="svg-inline--fa fa-chevron-right fa-w-10" aria-hidden="true" data-prefix="fa" data-icon="chevron-right" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" data-fa-i2svg=""><path fill="currentColor" d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"></path></svg><!-- <i class="fa fa-chevron-right" aria-hidden="true"></i> -->
+                    </div>
+                    <div class="swiper-button-prev swiper-button-red">
+                        <svg class="svg-inline--fa fa-chevron-left fa-w-10" aria-hidden="true" data-prefix="fa" data-icon="chevron-left" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" data-fa-i2svg=""><path fill="currentColor" d="M34.52 239.03L228.87 44.69c9.37-9.37 24.57-9.37 33.94 0l22.67 22.67c9.36 9.36 9.37 24.52.04 33.9L131.49 256l154.02 154.75c9.34 9.38 9.32 24.54-.04 33.9l-22.67 22.67c-9.37 9.37-24.57 9.37-33.94 0L34.52 272.97c-9.37-9.37-9.37-24.57 0-33.94z"></path></svg><!-- <i class="fa fa-chevron-left" aria-hidden="true"></i> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-md-7">
+
+            <dl class="row">
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.Url)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.Url)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.Title)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.Title)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.Description)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.Description)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.NewUsed)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.NewUsed)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.StockNumber)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.StockNumber)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.Year)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.Year)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.Hours)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.Hours)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.EngineHorsePower)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.EngineHorsePower)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.Drive)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.Drive)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.SerialNumber)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.SerialNumber)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.Price)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.Price)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.Model)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.Model)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.ProductCategory)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.ProductCategory.Name)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.ProductLocation)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.ProductLocation.Name)
+                </dd>
+                <dt class="col-sm-4">
+                    @Html.DisplayNameFor(model => model.ProductMake)
+                </dt>
+                <dd class="col-sm-8">
+                    @Html.DisplayFor(model => model.ProductMake.Name)
+                </dd>
+            </dl>
+        </div>
+    </div>
 </div>
 <div>
-
     @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
     {
         <a asp-action="Edit" asp-route-id="@Model.ProductID">Edit</a> <span>|</span>
     }
     <a asp-action="Index">Back to List</a>
 </div>
+
+@section Scripts{
+    <script>
+        var galleryTop = new Swiper(".gallery-top", {
+            spaceBetween: 10
+        }),
+        galleryThumbs = new Swiper(".gallery-thumbs", {
+            spaceBetween: 10,
+            centeredSlides: !0,
+            slidesPerView: "auto",
+            touchRatio: .2,
+            slideToClickedSlide: !0,
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev"
+            }
+        });
+        galleryTop.controller.control = galleryThumbs;
+        galleryThumbs.controller.control = galleryTop;
+    </script>
+}
